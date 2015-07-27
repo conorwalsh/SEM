@@ -9,7 +9,7 @@ Description
 Installation
 -----------
 
-Installation Instructions are being written.
+Installation Instructions are being written. Check back soon.
 
 Credits
 ------
