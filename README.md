@@ -4,7 +4,7 @@ SEM: Smart Environment Monitoring
 Description
 -----------
 
-**SEM:** Smart Environment Monitoring system is an Arduino and web based (PHP) system that monitors, records and analyses environmental metrics both inside and outside (using external service) of the room that the Arduino device is located in.
+**SEM:** **S**mart **E**nvironment **M**onitoring system is an Arduino and web based (PHP) system that monitors, records and analyses environmental metrics both inside and outside (using external service) of the room that the Arduino device is located in.
 
 Installation
 -----------
