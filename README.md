@@ -14,14 +14,10 @@ Test
 Credits
 ------
 
-The web system interface is based on this template sb admin from <a href="http://startbootstrap.com/template-overviews/sb-admin/" target="_blank">Startbootstrap.com/template-overviews/sb-admin</a>
-
-The web system uses font awesome from <a href="http://fontawesome.io/" target="_blank">Fontawesome.io</a>
-
-The original weather icons are from <a href="http://customicondesign.deviantart.com/art/Beautiful-Weather-Icon-Set-208760113" target="_blank">Customicondesign.deviantart.com/art/Beautiful-Weather-Icon-Set-208760113</a>
-
-Forecast.io weather php libray from <a href="https://github.com/tobias-redmann/forecast.io-php-api" target="_blank">Github.com/tobias-redmann/forecast.io-php-api</a>
-
+The web system interface is based on this template sb admin from <a href="http://startbootstrap.com/template-overviews/sb-admin/" target="_blank">Startbootstrap.com/template-overviews/sb-admin</a>.
+The web system uses font awesome from <a href="http://fontawesome.io/" target="_blank">Fontawesome.io</a>.
+The original weather icons are from <a href="http://customicondesign.deviantart.com/art/Beautiful-Weather-Icon-Set-208760113" target="_blank">Customicondesign.deviantart.com/art/Beautiful-Weather-Icon-Set-208760113</a>.
+Forecast.io weather php libray from <a href="https://github.com/tobias-redmann/forecast.io-php-api" target="_blank">Github.com/tobias-redmann/forecast.io-php-api</a>.
 Arduino Lux mesurement using an LDR and an Arduino from <a href="https://arduinodiy.wordpress.com/2013/11/03/measuring-light-with-an-arduino/" target="_blank">Arduinodiy.wordpress.com/2013/11/03/measuring-light-with-an-arduino</a>
 
 Thanks
