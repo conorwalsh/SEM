@@ -2,41 +2,41 @@
 
  /*-------------------------------------------- LICENSE (MIT) -------------------------------------------------
 
-         							Copyright (c) 2015 Conor Walsh
-         						  Website: http://www.conorwalsh.net
-	                            GitHub:  https://github.com/conorwalsh
-	                     Project: Smart Environment Monitoring system (S.E.M.)
+ 				Copyright (c) 2015 Conor Walsh
+ 			      Website: http://www.conorwalsh.net
+                            GitHub:  https://github.com/conorwalsh
+                     Project: Smart Environment Monitoring system (S.E.M.)
 
-				Permission is hereby granted, free of charge, to any person obtaining a copy
-				of this software and associated documentation files (the "Software"), to deal
-				in the Software without restriction, including without limitation the rights
-				to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-				copies of the Software, and to permit persons to whom the Software is
-				furnished to do so, subject to the following conditions:
-				
-				The above copyright notice and this permission notice shall be included in all
-				copies or substantial portions of the Software.
-				
-				THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-				IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-				FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-				AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-				LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-				OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-				SOFTWARE.
-		   __  __   ____                        __        __    _     _       ____   ___  _ ____  
-		  / /__\ \ / ___|___  _ __   ___  _ __  \ \      / /_ _| |___| |__   |___ \ / _ \/ | ___| 
-		 | |/ __| | |   / _ \| '_ \ / _ \| '__|  \ \ /\ / / _` | / __| '_ \    __) | | | | |___ \ 
-		 | | (__| | |__| (_) | | | | (_) | |      \ V  V / (_| | \__ \ | | |  / __/| |_| | |___) |
-		 | |\___| |\____\___/|_| |_|\___/|_|       \_/\_/ \__,_|_|___/_| |_| |_____|\___/|_|____/ 
-		  \_\  /_/                                                                                
+		Permission is hereby granted, free of charge, to any person obtaining a copy
+		of this software and associated documentation files (the "Software"), to deal
+		in the Software without restriction, including without limitation the rights
+		to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+		copies of the Software, and to permit persons to whom the Software is
+		furnished to do so, subject to the following conditions:
+		
+		The above copyright notice and this permission notice shall be included in all
+		copies or substantial portions of the Software.
+		
+		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+		FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+		AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+		LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+		SOFTWARE.
+	   __  __   ____                        __        __    _     _       ____   ___  _ ____  
+	  / /__\ \ / ___|___  _ __   ___  _ __  \ \      / /_ _| |___| |__   |___ \ / _ \/ | ___| 
+	 | |/ __| | |   / _ \| '_ \ / _ \| '__|  \ \ /\ / / _` | / __| '_ \    __) | | | | |___ \ 
+	 | | (__| | |__| (_) | | | | (_) | |      \ V  V / (_| | \__ \ | | |  / __/| |_| | |___) |
+	 | |\___| |\____\___/|_| |_|\___/|_|       \_/\_/ \__,_|_|___/_| |_| |_____|\___/|_|____/ 
+	  \_\  /_/                                                                                
 		  
  ----------------------------------------------- LICENSE END -----------------------------------------------*/
 
  /*---------------------------------------------- PAGE INFO --------------------------------------------------
 
-           		 This script is run every 10 minutes by a cronjob to check if the SEM device
-                 is still online and if not it informs the user.
+           	This script is run every 15 minutes by a cronjob to check if the SEM device
+                is still online and if not it informs the user.
 		  
  ---------------------------------------------- PAGE INFO END ----------------------------------------------*/
  
@@ -75,23 +75,27 @@
 			$status = sendmail($to, $subject, $message, $from);
 			
 			if($status==TRUE){
-				$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline email success');";
+				//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline email success');";
+				$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline email success', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 				mysql_query($insertsql, $conn);
 			}
 			else if($status==FALSE){
 				$status1 = sendmail($to, $subject, $message, $from);
 				if($status1==TRUE){
-					$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline email success2');";
+					//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline email success2');";
+					$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline email success2', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 	 				mysql_query($insertsql, $conn);
 				}
 				else if($status1==FALSE){
-					$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline email fail');";
+					//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline email fail');";
+					$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline email fail', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 	 				mysql_query($insertsql, $conn);
 				}
 			}
 		}
 		else{
-			$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline');";
+			//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline');";
+			$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 			mysql_query($insertsql, $conn);
 		}
 
@@ -105,24 +109,24 @@
 		if($smsenabled==1){
 			
 			$smsemailsubject = " ";
-			/*
-				Must be configured in setup
-			*/
-			$smsemailtxt = "api_id:0000000\nuser:user\npassword:pass\nto:" . $tosms . "\ntext:" . $message . "\n";
+			$smsemailtxt = "api_id:3504788\nuser:cwalsh\npassword:WalshN1ck\nto:" . $tosms . "\nfrom:353871715703\ntext:" . $message . "\n";
 			$to = "sms@messaging.clickatell.com";
 			$headers = "From: $from";
 							
 			if(mail($to,$smsemailsubject,$smsemailtxt,$headers)){
-				$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline sms success');";
+				//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline sms success');";
+				$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline sms success', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 				mysql_query($insertsql, $conn);
 			}
 			else{
 				if(mail($to,$smsemailsubject,$smsemailtxt,$headers)){
-					$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline sms success2');";
+					//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline sms success2');";
+					$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline sms success2', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 	 				mysql_query($insertsql, $conn);
 				}
 				else{
-					$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline sms fail');";
+					//$insertsql="INSERT INTO emaillogs (emailstatus) VALUES ('offline sms fail');";
+					$insertsql="INSERT INTO emaillogs (emailstatus, time) VALUES ('offline sms fail', '" . date("Y\-m\-d H\:i\:s" ,strtotime("-" . $timesince . " minutes")) . "');";
 	 				mysql_query($insertsql, $conn);
 				}
 			}
