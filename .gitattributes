@@ -1,4 +1,5 @@
 $ cat .gitattributes
+
 Web/font-awesome/* linguist-vendored
 Web/libraries/* linguist-vendored
 Web/js/flot/* linguist-vendored
@@ -11,3 +12,9 @@ Web/js/bootstrap.min.js linguist-vendored
 Web/js/bootstrap.min2.js linguist-vendored
 Web/js/jquery-1.10.2.js linguist-vendored
 Web/js/moment.js linguist-vendored
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
