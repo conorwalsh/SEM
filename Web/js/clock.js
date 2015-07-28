@@ -32,6 +32,13 @@
 	  
 ----------------------------------------------- LICENSE END -----------------------------------------------*/
 
+ /*---------------------------------------------- PAGE INFO --------------------------------------------------
+
+           	This javascript controls the clock shown in the top right hand corner of
+           	all the web interface pages.
+		  
+ ---------------------------------------------- PAGE INFO END ----------------------------------------------*/
+ 
 function GetClock(){
 	d = new Date();
 	nday   = d.getDay();
