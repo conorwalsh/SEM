@@ -151,12 +151,49 @@
 		$from1 = mysql_result(mysql_query("SELECT fromemail FROM settings LIMIT 1"),0);
 		
 		$lastoffline = strtotime(mysql_result(mysql_query("SELECT time FROM emaillogs WHERE emailstatus LIKE '%offline%' ORDER BY id DESC LIMIT 1;"),0));
-		$timeoffline = strval(round((time()-$lastoffline)/60));
+		$timeoffline = round((time()-$lastoffline)/60);
+		
+		$hours = floor($timeoffline/60);
+		$days = floor($timeoffline/1440);
+		$timeofflinefinal;
+		
+		if($days==0&&$hours==0){
+			$timeofflinefinal = strval($timeoffline) . " minutes";
+		}
+		else if($days==0){
+			$minutes = $timeoffline - ($hours*60);
+			if($hours>1){
+				$timeofflinefinal = strval($hours) . " hours and " . strval($minutes) . " minutes";
+			}
+			else{
+				$timeofflinefinal = strval($hours) . " hour and " . strval($minutes) . " minutes";
+			}
+		}
+		else{
+			$minutes = $timeoffline - ($hours*60);
+			$hours = $hours - ($days*24);
+			if($days>1){
+				if($hours>1){
+					$timeofflinefinal = strval($days) . " days, " . strval($hours) . " hours and " . strval($minutes) . " minutes";
+				}
+				else{
+					$timeofflinefinal = $timeofflinefinal = strval($days) . " days, " . strval($hours) . " hour and " . strval($minutes) . " minutes";
+				}
+			}
+			else{
+				if($hours>1){
+					$timeofflinefinal = strval($days) . " day, " . strval($hours) . " hours and " . strval($minutes) . " minutes";
+				}
+				else{
+					$timeofflinefinal = strval($days) . " day, " . strval($hours) . " hour and " . strval($minutes) . " minutes";
+				}
+			}
+		}
 		
 		$subject1 = "SEM Online (" . date('l jS \of F Y g:i:s A') . ")";
 		
-		$message1 = 'Hi ' . $tofirstname1 . ',<br/>This is a notification from the SEM system.<br/><br/><strong style="font-weight: bold; color: #51A351; font-size: 18px;">The SEM device has started transmitting data again. The SEM device was offline for ' . $timeoffline . ' minutes.</strong><br/><p style="text-align: center; font-size: 18px; font-weight: bold;"><a href="http://sem.conorwalsh.net">Login to view more</a></p>Regards,<br/>SEM.</p>';
-				
+		$message1 = 'Hi ' . $tofirstname1 . ',<br/>This is a notification from the SEM system.<br/><br/><strong style="font-weight: bold; color: #51A351; font-size: 18px;">The SEM device has started transmitting data again. The SEM device was offline for ' . $timeofflinefinal . '.</strong><br/><p style="text-align: center; font-size: 18px; font-weight: bold;"><a href="http://sem.conorwalsh.net">Login to view more</a></p>Regards,<br/>SEM.</p>';
+					
 		if($emailenabled1==1){
 				
 			$status2 = sendmail($to1, $subject1, $message1, $from1);
