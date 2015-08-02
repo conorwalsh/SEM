@@ -9,7 +9,18 @@ Description
 Installation
 -----------
 
-Installation Instructions are being written. Check back soon.
+1. Download or clone this repository.
+2. Setup a MySQL database using the sem.sql file in the SQL folder.
+3. Change the settings in the db.php file in the web folder to connect to your MySQl server.
+4. Upload all the files in the Web folder to your server.
+5. Setup a cronjob to run the offinecheck.php file every 15 minutes it checks if the device is online and if not it sends an email.
+6. The weather information is provided by developer.forecast.io and this service requires a unique api key which can be acquired br registering here (developer.forecast.io). The system allows a 1000 free api calls per api per day but the SEM system only uses roughly 470 api calls per day so this service should be free.
+7. Login to your system using the default username (admin) and password (admin).
+8. Go to the settings page (click your username in the top right hand corner and click settings) on this page you need to setup the email reports and external weather settings.
+9. Build the circuit that is shown in the Schematics folder with an Arduino Yún. This project uses an Arduino Yún because of its onboard wifi which makes it very portable but the code can be modified to use and Arduino Uno or Mega with an Ethernet or wifi shield.
+10. Change the url on line 80 of the Arduino code in the Arduino folder to the location of your arduino.php file.
+11. Upload the Arduino code to the Arduino.
+That should be it but if you run into any problems just send me an email.
 
 Credits
 ------
