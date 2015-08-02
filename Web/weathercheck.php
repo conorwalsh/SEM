@@ -415,6 +415,47 @@
 		}
 		elseif ($type=="ds") {
 			if ((time()-$time)<210) {
+				
+				$timeoffline = round(($lastbackonline-$lastoffline)/60);
+				
+				$hours = floor($timeoffline/60);
+				$days = floor($timeoffline/1440);
+				
+				$timeofflinefinal;
+				
+				if($days==0&&$hours==0){
+					$timeofflinefinal = strval($timeoffline) . " minutes";
+				}
+				else if($days==0){
+					$minutes = $timeoffline - ($hours*60);
+					if($hours>1){
+						$timeofflinefinal = strval($hours) . " hours and " . strval($minutes) . " minutes";
+					}
+					else{
+						$timeofflinefinal = strval($hours) . " hour and " . strval($minutes) . " minutes";
+					}
+				}
+				else{
+					$minutes = $timeoffline - ($hours*60);
+					$hours = $hours - ($days*24);
+					if($days>1){
+						if($hours>1){
+							$timeofflinefinal = strval($days) . " days, " . strval($hours) . " hours and " . strval($minutes) . " minutes";
+						}
+						else{
+							$timeofflinefinal = $timeofflinefinal = strval($days) . " days, " . strval($hours) . " hour and " . strval($minutes) . " minutes";
+						}
+					}
+					else{
+						if($hours>1){
+							$timeofflinefinal = strval($days) . " day, " . strval($hours) . " hours and " . strval($minutes) . " minutes";
+						}
+						else{
+							$timeofflinefinal = strval($days) . " day, " . strval($hours) . " hour and " . strval($minutes) . " minutes";
+						}
+					}
+				}
+				
 				echo "<div class='panel panel-success'>
 	              <div class='panel-heading'>
 	                <h3 class='panel-title'>Device Status <i title='Help' style='float: right; cursor: pointer;' class='fa fa-question' data-toggle='modal' data-target='#dsmodal'></i></h3>
@@ -422,18 +463,59 @@
 	              <div style='text-align: center;' class='panel-body'>
 	                <div><i class='fa fa-check'></i> Online and logging data</div><br/>
 	                <div><u>Last data received:</u> " . date('g:i:s A l jS \of F Y', $time) . "</div><br/>
-	                <div><u>Last offline:</u> " . date('g:i:s A l jS \of F Y', $lastoffline) . " for " . strval(round(($lastbackonline-$lastoffline)/60)) . " minutes</div>
+	                <div><u>Last offline:</u> " . date('g:i:s A l jS \of F Y', $lastoffline) . " for " . $timeofflinefinal . "</div>
 	              </div>
 	            </div>";
 			}
 			else {
+				$timeoffline = round((time()-$lastoffline)/60);
+				
+				$hours = floor($timeoffline/60);
+				$days = floor($timeoffline/1440);
+				
+				$timeofflinefinal;
+				
+				if($days==0&&$hours==0){
+					$timeofflinefinal = strval($timeoffline) . " minutes";
+				}
+				else if($days==0){
+					$minutes = $timeoffline - ($hours*60);
+					if($hours>1){
+						$timeofflinefinal = strval($hours) . " hours and " . strval($minutes) . " minutes";
+					}
+					else{
+						$timeofflinefinal = strval($hours) . " hour and " . strval($minutes) . " minutes";
+					}
+				}
+				else{
+					$minutes = $timeoffline - ($hours*60);
+					$hours = $hours - ($days*24);
+					if($days>1){
+						if($hours>1){
+							$timeofflinefinal = strval($days) . " days, " . strval($hours) . " hours and " . strval($minutes) . " minutes";
+						}
+						else{
+							$timeofflinefinal = $timeofflinefinal = strval($days) . " days, " . strval($hours) . " hour and " . strval($minutes) . " minutes";
+						}
+					}
+					else{
+						if($hours>1){
+							$timeofflinefinal = strval($days) . " day, " . strval($hours) . " hours and " . strval($minutes) . " minutes";
+						}
+						else{
+							$timeofflinefinal = strval($days) . " day, " . strval($hours) . " hour and " . strval($minutes) . " minutes";
+						}
+					}
+				}
+				
 				echo "<div class='panel panel-danger'>
 	              <div class='panel-heading'>
 	                <h3 class='panel-title'>Device Status <i title='Help' style='float: right; cursor: pointer;' class='fa fa-question' data-toggle='modal' data-target='#dsmodal'></i></h3>
 	              </div>
 	              <div style='text-align: center;' class='panel-body'>
 	                <div><i class='fa fa-times'></i> Offline and not logging data</div><br/>
-	                <div><u>Last data received:</u> " . date('g:i:s A l jS \of F Y', $time) . "</div>
+	                <div><u>Last data received:</u> " . date('g:i:s A l jS \of F Y', $time) . "</div><br/>
+	                <div><u>Offline for :</u> " . $timeofflinefinal . " so far</div>
 	              </div>
 	            </div>";
 			}
