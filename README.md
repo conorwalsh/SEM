@@ -20,6 +20,7 @@ Installation
 9. Build the circuit that is shown in the Schematics folder with an Arduino Yún. This project uses an Arduino Yún because of its onboard wifi which makes it very portable but the code can be modified to use and Arduino Uno or Mega with an Ethernet or wifi shield.
 10. Change the url on line 80 of the Arduino code in the Arduino folder to the location of your arduino.php file.
 11. Upload the Arduino code to the Arduino.
+
 That should be it but if you run into any problems just send me an email.
 
 Credits
