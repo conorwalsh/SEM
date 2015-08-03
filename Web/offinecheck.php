@@ -109,7 +109,7 @@
 		if($smsenabled==1){
 			
 			$smsemailsubject = " ";
-			$smsemailtxt = "api_id:\nuser:\npassword:\nto:" . $tosms . "\nfrom:\ntext:" . $message . "\n";
+	                $smsemailtxt = "api_id:0000000\nuser:user\npassword:pass\nto:" . $tosms . "\ntext:" . $message . "\n"; 
 			$to = "sms@messaging.clickatell.com";
 			$headers = "From: $from";
 							
